@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARCHIVE</title>
+<style>
+  :root {
+    --bg: #0b0b0b;
+    --fg: #e8e6e1;
+    --muted: #8a8780;
+    --line: #262626;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 12vh 6vw 10vh;
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 {
+    font-size: clamp(48px, 12vw, 160px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+  }
+  header p {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  main { padding: 0 6vw; }
+  figure {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    padding: 10vh 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .meta {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .meta .no {
+    display: block;
+    font-size: 32px;
+    color: var(--fg);
+    letter-spacing: 0;
+    margin-bottom: 8px;
+  }
+  figure img {
+    width: 100%;
+    max-height: 86vh;
+    object-fit: contain;
+    object-position: left top;
+    display: block;
+    cursor: zoom-in;
+  }
+  figure.tall img { width: auto; max-width: 100%; }
+  figcaption {
+    grid-column: 2;
+    max-width: 36em;
+    font-size: 15px;
+  }
+  figcaption:empty { display: none; }
+  footer {
+    padding: 8vh 6vw;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  /* 拡大表示 */
+  #viewer {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    align-items: center; justify-content: center;
+    cursor: zoom-out;
+    z-index: 10;
+  }
+  #viewer.open { display: flex; }
+  #viewer img { max-width: 94vw; max-height: 94vh; }
+  @media (max-width: 640px) {
+    figure { grid-template-columns: 1fr; gap: 16px; padding: 6vh 0; }
+    figcaption { grid-column: 1; }
+    .meta .no { display: inline; font-size: 20px; margin-right: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ARCHIVE</h1>
+  <p>2026.08 — 2026.11 / 5 PHOTOGRAPHS</p>
+</header>
+
+<main>
+  <figure>
+    <div class="meta"><span class="no">01</span>2026.08.10</div>
+    <img src="images/01.jpg" alt="暗闇に浮かぶ大小の丸い光" loading="lazy">
+    <figcaption></figcaption>
+  </figure>
+
+  <figure>
+    <div class="meta"><span class="no">02</span>2026.08.11</div>
+    <img src="images/02.jpg" alt="蜘蛛の巣状にひび割れたガラス" loading="lazy">
+    <figcaption></figcaption>
+  </figure>
+
+  <figure class="tall">
+    <div class="meta"><span class="no">03</span>2026.10.04</div>
+    <img src="images/03.jpg" alt="白黒で左右対称に加工された建物" loading="lazy">
+    <figcaption></figcaption>
+  </figure>
+
+  <figure>
+    <div class="meta"><span class="no">04</span>2026.11.10</div>
+    <img src="images/04.jpg" alt="迷彩柄のスタッズバッグと銃の形のアクセサリー" loading="lazy">
+    <figcaption></figcaption>
+  </figure>
+
+  <figure>
+    <div class="meta"><span class="no">05</span>2026.11.10</div>
+    <img src="images/05.jpg" alt="赤い照明の暗いフロアでプレイするDJ" loading="lazy">
+    <figcaption></figcaption>
+  </figure>
+</main>
+
+<footer>© 2026</footer>
+
+<div id="viewer"><img alt=""></div>
+
+<script>
+  const viewer = document.getElementById('viewer');
+  const big = viewer.querySelector('img');
+  document.querySelectorAll('figure img').forEach(img => {
+    img.addEventListener('click', () => {
+      big.src = img.src; big.alt = img.alt;
+      viewer.classList.add('open');
+    });
+  });
+  viewer.addEventListener('click', () => viewer.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') viewer.classList.remove('open'); });
+</script>
+</body>
+</html>
